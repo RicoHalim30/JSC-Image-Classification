@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Image Classification</title>
+        <!-- load Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- load custom CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+
+    <body>
+        <div class="container">
+            <h1 class="text-center">Image Classification</h1>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="image-upload">Upload an Image</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="image-upload" name="image"
+                                        accept="image/*" required>
+                                    <label class="custom-file-label" for="image-upload">Choose file</label>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <img id="image-preview" src="#" alt="image preview"
+                                    style="max-height: 200px; display: none;">
+                                <p id="filename-preview" style="display: none;"></p>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Predict</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- load jQuery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <!-- load Bootstrap JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNSGt/d"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script>
+            // ketika file dipilih, tampilkan preview gambar
+            $('#image-upload').on('change', function () {
+                const file = $(this).get(0).files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function () {
+                        $('#image-preview').attr('src', reader.result);
+                        $('#image-preview').show();
+                        $('#file-name').text(file.name); // menampilkan nama file
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script>
+    </body>
+</html>

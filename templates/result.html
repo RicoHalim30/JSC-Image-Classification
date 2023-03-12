@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Image Classification Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
+</head>
+<body>
+    <h1>Image Classification Result</h1>
+    <p>The image <strong>{{ image_file }}</strong> is classified as <strong>{{ result }}</strong>.</p>
+    <div class="image-container">
+        <img src="{{ url_for('serve_image', filename=image_file) }}" alt="Uploaded Image">
+    </div>
+</body>
+</html>
